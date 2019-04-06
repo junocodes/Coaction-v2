@@ -33,6 +33,12 @@ $xs: 5px;
   justify-content: center;
 }
 
+%wrapper {
+  max-width: 1200px;
+  width: calc(100% - #{$xl});
+  margin: 0 auto;
+}
+
 // Root Styles
 * {
   box-sizing: border-box;

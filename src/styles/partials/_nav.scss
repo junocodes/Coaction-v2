@@ -5,11 +5,9 @@ nav.wrapper {
   color: $light;
   .content {
     @extend %flexCenter;
-    justify-content: space-between;
+    @extend %wrapper;
     height: $md;
-    max-width: 1200px;
-    width: calc(100% - #{$lg});
-    margin: 0 auto;
+    justify-content: space-between;
     h1 {
       font-size: $md;
       text-transform: uppercase;

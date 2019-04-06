@@ -1,14 +1,18 @@
 import React, { Component } from "react";
 import "./styles/app.scss";
 import Nav from "./components/Nav";
+import Teams from "./components/Teams";
+import Chat from "./components/Chat";
 
 class App extends Component {
   render() {
     return (
       <div className="App">
         <Nav />
-        <h1>Testing Hero Font</h1>
-        <p>Starting with a blank slate and testing plain text.</p>
+        <main className="main-auth">
+          <Teams />
+          <Chat />
+        </main>
       </div>
     );
   }
