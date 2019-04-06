@@ -1,0 +1,80 @@
+.chat {
+  display: grid;
+  grid-template-rows: 40px calc(100% - 130px) 90px;
+  border: 3px solid $dark;
+  border-radius: $sm;
+  background: $light;
+  overflow: hidden;
+  header {
+    @extend %flexCenter;
+    background: $dark;
+    text-align: center;
+    text-transform: uppercase;
+    color: $light;
+  }
+  .messages {
+    overflow: scroll;
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      li {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: $sm;
+        border-bottom: 1px solid rgba($mid, 0.5);
+        strong {
+          @extend %heroText;
+          display: block;
+          color: $mid;
+        }
+        div:last-of-type {
+          display: flex;
+        }
+        span {
+          @extend %flexCenter;
+          border: 1px solid rgba($mid, 0.5);
+          border-radius: $xs;
+          color: $mid;
+          padding: $xs $sm;
+          margin-left: $xs;
+          &.remove {
+            @extend %heroText;
+            border: none;
+            background: $dark;
+            color: $light;
+            &:hover {
+              background: $yellow;
+              border-color: $yellow;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+  }
+  form {
+    @extend %flexCenter;
+    background: $dark;
+    padding: $sm;
+    input {
+      width: 100%;
+      height: $xl;
+      border: 3px solid $mid;
+      border-radius: $xs;
+      padding: 0 $sm;
+      color: $dark;
+      &:focus {
+        border-color: $yellow;
+        outline: none;
+      }
+      &::placeholder {
+        color: $mid;
+      }
+    }
+    button {
+      margin-left: $sm;
+    }
+  }
+}

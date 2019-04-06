@@ -58,11 +58,9 @@
         border: 3px solid $mid;
         border-radius: $xs;
         text-align: center;
-        text-transform: uppercase;
         color: $dark;
         &::placeholder {
           color: $mid;
-          text-transform: uppercase;
         }
         &:focus {
           border-color: $yellow;

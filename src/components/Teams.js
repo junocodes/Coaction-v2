@@ -15,7 +15,7 @@ export default function Teams() {
       </div>
       <div className="create-team-form">
         <form>
-          <input type="text" placeholder="name of team" />
+          <input type="text" placeholder="Name of team" />
           <button>Create Team</button>
         </form>
       </div>
@@ -29,4 +29,5 @@ export default function Teams() {
       2. This component should list all active team channels. 
       3. The user should have an option to create a team. 
       4. Event on plus icon (+) should toggle form visibility. 
+      5. User should be able to switch the active team (chat) by clicking on the team name. 
 */
