@@ -47,6 +47,7 @@ $xs: 5px;
 body {
   @extend %plainText;
   background: $light;
+  color: $dark;
 }
 
 // Font Styles

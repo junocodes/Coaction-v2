@@ -1,0 +1,74 @@
+.teams {
+  h3 {
+    margin-bottom: $sm;
+    text-align: center;
+    text-transform: uppercase;
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    li {
+      @extend %flexCenter;
+      @extend %heroText;
+      min-height: $md;
+      margin-top: $xs;
+      border-radius: $sm;
+      background: $blue;
+      text-transform: uppercase;
+      &:first-of-type {
+        margin-top: 0;
+      }
+      &:hover {
+        background: $yellow;
+        cursor: pointer;
+      }
+    }
+  }
+  .create-team-action {
+    @extend %flexCenter;
+    height: $md;
+    width: $md;
+    margin: $sm auto 0;
+    background: $dark;
+    border-radius: $md;
+    color: $light;
+    &:hover {
+      background: $yellow;
+      cursor: pointer;
+    }
+  }
+  .create-team-form {
+    background: $dark;
+    border-radius: $sm;
+    padding: $sm 0;
+    margin: $sm auto 0;
+    h4 {
+      color: $light;
+      text-align: center;
+      text-transform: uppercase;
+    }
+    form {
+      @extend %flexCenter;
+      flex-flow: column;
+      input {
+        height: $lg;
+        width: calc(100% - #{$lg});
+        margin: $xs 0 $sm;
+        border: 3px solid $mid;
+        border-radius: $xs;
+        text-align: center;
+        text-transform: uppercase;
+        color: $dark;
+        &::placeholder {
+          color: $mid;
+          text-transform: uppercase;
+        }
+        &:focus {
+          border-color: $yellow;
+          outline: none;
+        }
+      }
+    }
+  }
+}
