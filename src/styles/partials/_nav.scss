@@ -28,4 +28,23 @@ nav.wrapper {
       }
     }
   }
+  @media screen and (max-width: 600px) {
+    height: calc(#{$xl} * 2);
+    .content {
+      flex-flow: column;
+      align-items: center;
+      justify-content: center;
+      h1 {
+        height: $xl;
+      }
+      .user {
+        img {
+          display: none;
+        }
+        button {
+          margin-left: $sm;
+        }
+      }
+    }
+  }
 }

@@ -77,4 +77,14 @@
       margin-left: $sm;
     }
   }
+  @media screen and (max-width: 600px) {
+    margin-top: $md;
+    grid-template-rows: 40px 300px 120px;
+    form {
+      flex-flow: column;
+      button {
+        margin-top: $sm;
+      }
+    }
+  }
 }

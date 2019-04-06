@@ -6,6 +6,11 @@
   margin: $md auto;
   height: calc(100vh - 120px);
   min-height: 450px;
+  @media screen and (max-width: 600px) {
+    height: 100%;
+    display: block;
+    margin-top: $md;
+  }
 }
 
 .main-guest {
@@ -13,7 +18,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: calc(100vh - 60px);
+  height: calc(100vh - #{$xl});
   min-height: 450px;
   > div {
     max-width: 450px;
@@ -27,5 +32,10 @@
     p {
       margin: $sm 0 $md;
     }
+  }
+  @media screen and (max-width: 600px) {
+    height: 100%;
+    display: block;
+    margin-top: $md;
   }
 }
