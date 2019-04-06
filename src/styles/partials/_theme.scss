@@ -2,12 +2,18 @@
 @import url("https://fonts.googleapis.com/css?family=Didact+Gothic|Francois+One");
 
 // Color Variables
-$yellow: #ffcd36;
-$purple: #b25ddf;
-$blue: #00b0fb;
-$dark: #241259;
-$mid: #5e5185;
-$light: #f5ebfb;
+$yellow: #ffc849;
+$blue: #43c2cc;
+$dark: #043456;
+$mid: #c1c7d0;
+$light: #ffffff;
+
+// Size Variables
+$xl: 60px;
+$lg: 45px;
+$md: 30px;
+$sm: 15px;
+$xs: 5px;
 
 // Font Extensions
 %plainText {
@@ -20,9 +26,21 @@ $light: #f5ebfb;
   font-weight: 400;
 }
 
+// Helpers
+%flexCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 // Root Styles
+* {
+  box-sizing: border-box;
+}
+
 body {
   @extend %plainText;
+  background: $light;
 }
 
 // Font Styles
@@ -38,4 +56,19 @@ h6 {
 
 p {
   margin: 0;
+}
+
+// Button Styles
+button {
+  @extend %heroText;
+  min-height: $md;
+  padding: 0 $md;
+  border: none;
+  border-radius: $md;
+  text-transform: uppercase;
+  background: $blue;
+  color: $dark;
+  &:hover {
+    background: $yellow;
+  }
 }

@@ -1,0 +1,33 @@
+nav.wrapper {
+  @extend %flexCenter;
+  height: $xl;
+  background: $dark;
+  color: $light;
+  .content {
+    @extend %flexCenter;
+    justify-content: space-between;
+    height: $md;
+    max-width: 1200px;
+    width: calc(100% - #{$lg});
+    margin: 0 auto;
+    h1 {
+      font-size: $md;
+      text-transform: uppercase;
+      span {
+        height: $md;
+        color: $yellow;
+        font-size: calc(#{$md} - #{$xs});
+      }
+    }
+    .user {
+      @extend %flexCenter;
+      img {
+        height: $md;
+        width: $md;
+        border-radius: $md;
+        border: 3px solid $mid;
+        margin: 0 $sm 0 $xs;
+      }
+    }
+  }
+}
