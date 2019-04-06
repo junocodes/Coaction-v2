@@ -29,5 +29,5 @@ export default function Nav() {
       1. This component should display the authenticated user's username and image.
       2. The user should have an option to sign out. 
     Else: 
-      1. Component should only display logo and option to sign-in. 
+      1. Component should only display logo and greeting to the guest.
 */
