@@ -37,7 +37,7 @@ class App extends Component {
             firebase={firebase}
             setActiveTeam={this.setActiveTeam.bind(this)}
           />
-          <Chat activeTeam={this.state.activeTeam} />
+          <Chat firebase={firebase} activeTeam={this.state.activeTeam} />
         </main>
         {/* <main className="main-guest">
           <Welcome />

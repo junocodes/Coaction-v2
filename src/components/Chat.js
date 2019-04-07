@@ -1,6 +1,57 @@
 import React, { Component } from "react";
+import moment from "moment";
 
 export default class Chat extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { messages: [], message: "" };
+
+    // Creating reference for Firebase data.
+    this.messagesRef = this.props.firebase.database().ref("messages");
+
+    // Binding form values for team creation.
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(e) {
+    this.setState({ message: e.target.value });
+
+    // Verify state is updating in console
+    console.log(this.state.message);
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    // Define and push new message to firebase.
+    let newMessage = this.state.message;
+    this.messagesRef.push({
+      content: newMessage,
+      sentAt: Math.round(new Date().getTime() / 1000),
+      teamId: this.props.activeTeam.key,
+      username: this.props.user.displayName
+    });
+
+    // Clear message input after submission.
+    this.setState({ message: "" });
+  }
+
+  componentDidMount() {
+    this.messagesRef.on("child_added", snapshot => {
+      // Destructuring for readibility.
+      const { messages } = this.state;
+
+      // Sync Firebase data to state.
+      const message = snapshot.val();
+      message.key = snapshot.key;
+      this.setState({
+        messages: messages.concat(message)
+      });
+
+      // Reference returned Firebase teams as table.
+      console.table(messages);
+    });
+  }
   render() {
     return (
       <div className="chat">
@@ -12,26 +63,41 @@ export default class Chat extends Component {
           )}
         </header>
         <div className="messages">
-          <ul>
-            <li>
-              <div>
-                <strong>Username</strong>
-                Here is the message that the user typed.
-              </div>
-              <div>
-                <span>
-                  <small>10:30pm</small>
-                </span>
-                <span className="remove">
-                  <small>X</small>
-                </span>
-              </div>
-            </li>
-          </ul>
+          {this.props.activeTeam === null && ""}
+          {this.props.activeTeam !== null && (
+            <ul>
+              {this.state.messages
+                .filter(message => message.teamId === this.props.activeTeam.key)
+                .map(message => {
+                  return (
+                    <li key={message.key}>
+                      <div>
+                        <strong>{message.username}</strong>
+                        {message.content}
+                      </div>
+                      <div>
+                        <span>
+                          <small>
+                            {moment.unix(message.sentAt).format("h:mm A")}
+                          </small>
+                        </span>
+                        <span className="remove">
+                          <small>X</small>
+                        </span>
+                      </div>
+                    </li>
+                  );
+                })}
+            </ul>
+          )}
         </div>
-        <form>
-          <input type="textarea" placeholder="Add your message . . ." />
-          <button>Send</button>
+        <form onSubmit={this.handleSubmit}>
+          <input
+            type="textarea"
+            value={this.state.message}
+            onChange={this.handleChange}
+          />
+          <button>Submit</button>
         </form>
       </div>
     );
