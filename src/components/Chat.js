@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Welcome from "./Welcome";
 import moment from "moment";
 
 export default class Chat extends Component {
@@ -49,57 +50,64 @@ export default class Chat extends Component {
       });
 
       // Reference returned Firebase teams as table.
-      console.table(messages);
+      // console.table(messages);
     });
   }
   render() {
     return (
-      <div className="chat">
-        <header>
-          {this.props.activeTeam !== null ? (
-            <h3>{this.props.activeTeam.name}</h3>
-          ) : (
-            <h3>Please select a team</h3>
-          )}
-        </header>
-        <div className="messages">
-          {this.props.activeTeam === null && ""}
-          {this.props.activeTeam !== null && (
-            <ul>
-              {this.state.messages
-                .filter(message => message.teamId === this.props.activeTeam.key)
-                .map(message => {
-                  return (
-                    <li key={message.key}>
-                      <div>
-                        <strong>{message.username}</strong>
-                        {message.content}
-                      </div>
-                      <div>
-                        <span>
-                          <small>
-                            {moment.unix(message.sentAt).format("h:mm A")}
-                          </small>
-                        </span>
-                        <span className="remove">
-                          <small>X</small>
-                        </span>
-                      </div>
-                    </li>
-                  );
-                })}
-            </ul>
-          )}
-        </div>
-        <form onSubmit={this.handleSubmit}>
-          <input
-            type="textarea"
-            value={this.state.message}
-            onChange={this.handleChange}
-          />
-          <button>Submit</button>
-        </form>
-      </div>
+      <>
+        {this.props.user === null && <Welcome />}
+        {this.props.user !== null && (
+          <div className="chat">
+            <header>
+              {this.props.activeTeam !== null ? (
+                <h3>{this.props.activeTeam.name}</h3>
+              ) : (
+                <h3>Please select a team</h3>
+              )}
+            </header>
+            <div className="messages">
+              {this.props.activeTeam === null && ""}
+              {this.props.activeTeam !== null && (
+                <ul>
+                  {this.state.messages
+                    .filter(
+                      message => message.teamId === this.props.activeTeam.key
+                    )
+                    .map(message => {
+                      return (
+                        <li key={message.key}>
+                          <div>
+                            <strong>{message.username}</strong>
+                            {message.content}
+                          </div>
+                          <div>
+                            <span>
+                              <small>
+                                {moment.unix(message.sentAt).format("h:mm A")}
+                              </small>
+                            </span>
+                            <span className="remove">
+                              <small>X</small>
+                            </span>
+                          </div>
+                        </li>
+                      );
+                    })}
+                </ul>
+              )}
+            </div>
+            <form onSubmit={this.handleSubmit}>
+              <input
+                type="textarea"
+                value={this.state.message}
+                onChange={this.handleChange}
+              />
+              <button>Submit</button>
+            </form>
+          </div>
+        )}
+      </>
     );
   }
 }

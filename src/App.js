@@ -4,7 +4,6 @@ import "./styles/app.scss";
 import Nav from "./components/Nav";
 import Teams from "./components/Teams";
 import Chat from "./components/Chat";
-import Welcome from "./components/Welcome";
 
 // Initializing Firebase's realtime database.
 var config = {
@@ -56,25 +55,23 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Nav user={this.state.user} signOut={this.signOut.bind(this)} />
-        {this.state.user === null && (
-          <main className="main-guest">
-            <Welcome signIn={this.signIn.bind(this)} />
-          </main>
-        )}
-        {this.state.user !== null && (
-          <main className="main-auth">
-            <Teams
-              firebase={firebase}
-              setActiveTeam={this.setActiveTeam.bind(this)}
-            />
-            <Chat
-              firebase={firebase}
-              activeTeam={this.state.activeTeam}
-              user={this.state.user}
-            />
-          </main>
-        )}
+        <Nav
+          user={this.state.user}
+          signIn={this.signIn.bind(this)}
+          signOut={this.signOut.bind(this)}
+        />
+        <main>
+          <Teams
+            firebase={firebase}
+            user={this.state.user}
+            setActiveTeam={this.setActiveTeam.bind(this)}
+          />
+          <Chat
+            firebase={firebase}
+            activeTeam={this.state.activeTeam}
+            user={this.state.user}
+          />
+        </main>
       </div>
     );
   }

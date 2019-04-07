@@ -29,7 +29,7 @@ export default class Teams extends Component {
     this.setState({ value: e.target.value });
 
     // Verify state is updating in console
-    console.log(this.state.value);
+    // console.log(this.state.value);
   }
 
   handleSubmit(e) {
@@ -58,45 +58,51 @@ export default class Teams extends Component {
       });
 
       // Reference returned Firebase teams as table.
-      //console.table(teams);
+      // console.table(teams);
     });
   }
 
   render() {
     return (
-      <div className="teams">
-        <h3>Team Boards</h3>
-        <ul>
-          {this.state.teams.map(team => {
-            return (
-              <li key={team.key} onClick={() => this.props.setActiveTeam(team)}>
-                {team.name}
-              </li>
-            );
-          })}
-        </ul>
-        {!this.state.isCreatingTeam && (
-          <div className="create-team-action">
-            <FaPlus onClick={() => this.handleCreatingTeamToggle()} />
-          </div>
-        )}
-        {this.state.isCreatingTeam && (
-          <div className="create-team-form">
-            <form onSubmit={this.handleSubmit}>
-              <input
-                type="text"
-                value={this.state.value}
-                onChange={this.handleChange}
-                placeholder="Name of team"
-              />
-              <button>Create Team</button>
-            </form>
-            <small onClick={() => this.handleCreatingTeamToggle()}>
-              Cancel
-            </small>
-          </div>
-        )}
-      </div>
+      <>
+        <div className="teams">
+          <h3>Team Boards</h3>
+          <ul>
+            {this.state.teams.map(team => {
+              return (
+                <li
+                  key={team.key}
+                  onClick={() => this.props.setActiveTeam(team)}
+                >
+                  {team.name}
+                </li>
+              );
+            })}
+          </ul>
+          {this.props.user !== null && (
+            <div className="create-team-action">
+              <FaPlus onClick={() => this.handleCreatingTeamToggle()} />
+            </div>
+          )}
+
+          {this.state.isCreatingTeam && (
+            <div className="create-team-form">
+              <form onSubmit={this.handleSubmit}>
+                <input
+                  type="text"
+                  value={this.state.value}
+                  onChange={this.handleChange}
+                  placeholder="Name of team"
+                />
+                <button>Create Team</button>
+              </form>
+              <small onClick={() => this.handleCreatingTeamToggle()}>
+                Cancel
+              </small>
+            </div>
+          )}
+        </div>
+      </>
     );
   }
 }

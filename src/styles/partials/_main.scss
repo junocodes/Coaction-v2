@@ -1,4 +1,4 @@
-.main-auth {
+main {
   @extend %wrapper;
   display: grid;
   grid-template-columns: 300px 1fr;
@@ -6,33 +6,6 @@
   margin: $md auto;
   height: calc(100vh - 120px);
   min-height: 450px;
-  @media screen and (max-width: 600px) {
-    height: 100%;
-    display: block;
-    margin-top: $md;
-  }
-}
-
-.main-guest {
-  @extend %wrapper;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: calc(100vh - #{$xl});
-  min-height: 450px;
-  > div {
-    max-width: 450px;
-    padding: $md;
-    border: 3px solid $mid;
-    border-radius: $sm;
-    text-align: center;
-    h2 {
-      text-transform: uppercase;
-    }
-    p {
-      margin: $sm 0 $md;
-    }
-  }
   @media screen and (max-width: 600px) {
     height: 100%;
     display: block;

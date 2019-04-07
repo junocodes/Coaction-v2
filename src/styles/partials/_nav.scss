@@ -24,7 +24,10 @@ nav.wrapper {
         width: $md;
         border-radius: $md;
         border: 3px solid $mid;
-        margin: 0 $sm 0 $xs;
+        margin: 0 0 0 $xs;
+      }
+      button {
+        margin-left: $sm;
       }
     }
   }

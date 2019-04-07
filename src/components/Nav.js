@@ -27,6 +27,7 @@ export default class Nav extends Component {
             ) : (
               <>
                 <p>Hello, Guest!</p>
+                <button onClick={() => this.props.signIn()}>Sign In</button>
               </>
             )}
           </div>
