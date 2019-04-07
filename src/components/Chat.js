@@ -1,35 +1,41 @@
-import React from "react";
+import React, { Component } from "react";
 
-export default function Chat() {
-  return (
-    <div className="chat">
-      <header>
-        <h2>Design</h2>
-      </header>
-      <div className="messages">
-        <ul>
-          <li>
-            <div>
-              <strong>Username</strong>
-              Here is the message that the user typed.
-            </div>
-            <div>
-              <span>
-                <small>10:30pm</small>
-              </span>
-              <span className="remove">
-                <small>X</small>
-              </span>
-            </div>
-          </li>
-        </ul>
+export default class Chat extends Component {
+  render() {
+    return (
+      <div className="chat">
+        <header>
+          {this.props.activeTeam !== null ? (
+            <h3>{this.props.activeTeam.name}</h3>
+          ) : (
+            <h3>Please select a team</h3>
+          )}
+        </header>
+        <div className="messages">
+          <ul>
+            <li>
+              <div>
+                <strong>Username</strong>
+                Here is the message that the user typed.
+              </div>
+              <div>
+                <span>
+                  <small>10:30pm</small>
+                </span>
+                <span className="remove">
+                  <small>X</small>
+                </span>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <form>
+          <input type="textarea" placeholder="Add your message . . ." />
+          <button>Send</button>
+        </form>
       </div>
-      <form>
-        <input type="textarea" placeholder="Add your message . . ." />
-        <button>Send</button>
-      </form>
-    </div>
-  );
+    );
+  }
 }
 
 /*

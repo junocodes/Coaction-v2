@@ -68,7 +68,11 @@ export default class Teams extends Component {
         <h3>Team Boards</h3>
         <ul>
           {this.state.teams.map(team => {
-            return <li key={team.key}>{team.name}</li>;
+            return (
+              <li key={team.key} onClick={() => this.props.setActiveTeam(team)}>
+                {team.name}
+              </li>
+            );
           })}
         </ul>
         {!this.state.isCreatingTeam && (

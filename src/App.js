@@ -18,13 +18,26 @@ var config = {
 firebase.initializeApp(config);
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { activeTeam: null, user: null };
+  }
+
+  // Set active team board (conversation).
+  setActiveTeam(team) {
+    this.setState({ activeTeam: team });
+  }
+
   render() {
     return (
       <div className="App">
         <Nav />
         <main className="main-auth">
-          <Teams firebase={firebase} />
-          <Chat />
+          <Teams
+            firebase={firebase}
+            setActiveTeam={this.setActiveTeam.bind(this)}
+          />
+          <Chat activeTeam={this.state.activeTeam} />
         </main>
         {/* <main className="main-guest">
           <Welcome />
