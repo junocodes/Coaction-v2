@@ -1,26 +1,39 @@
-import React from "react";
+import React, { Component } from "react";
 import { FaBolt } from "react-icons/fa";
 
-export default function Nav() {
-  return (
-    <nav className="wrapper">
-      <div className="content">
-        <span>
-          <h1>
-            Coaction
-            <span>
-              <FaBolt />
-            </span>
-          </h1>
-        </span>
-        <div className="user">
-          <p>Hello, John Doe!</p>
-          <img src="http://placehold.it/400x400.jpg" alt="John Doe" />
-          <button>Sign Out</button>
+export default class Nav extends Component {
+  render() {
+    return (
+      <nav className="wrapper">
+        <div className="content">
+          <span>
+            <h1>
+              Coaction
+              <span>
+                <FaBolt />
+              </span>
+            </h1>
+          </span>
+          <div className="user">
+            {this.props.user ? (
+              <>
+                <p>Hello, {this.props.user.displayName}!</p>
+                <img
+                  src={this.props.user.photoURL}
+                  alt={this.props.user.displayName}
+                />
+                <button onClick={() => this.props.signOut()}>Sign Out</button>
+              </>
+            ) : (
+              <>
+                <p>Hello, Guest!</p>
+              </>
+            )}
+          </div>
         </div>
-      </div>
-    </nav>
-  );
+      </nav>
+    );
+  }
 }
 
 /*

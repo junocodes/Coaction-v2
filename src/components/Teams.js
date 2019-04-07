@@ -58,7 +58,7 @@ export default class Teams extends Component {
       });
 
       // Reference returned Firebase teams as table.
-      console.table(teams);
+      //console.table(teams);
     });
   }
 

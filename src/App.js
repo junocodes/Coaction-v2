@@ -4,7 +4,7 @@ import "./styles/app.scss";
 import Nav from "./components/Nav";
 import Teams from "./components/Teams";
 import Chat from "./components/Chat";
-//import Welcome from "./components/Welcome";
+import Welcome from "./components/Welcome";
 
 // Initializing Firebase's realtime database.
 var config = {
@@ -23,25 +23,58 @@ class App extends Component {
     this.state = { activeTeam: null, user: null };
   }
 
-  // Set active team board (conversation).
   setActiveTeam(team) {
-    this.setState({ activeTeam: team });
+    // Set active team board (conversation).
+    this.setState({
+      activeTeam: team
+    });
+  }
+
+  setUser(user) {
+    // Set user after authentication
+    this.setState({ user: user });
+  }
+
+  signIn() {
+    // Call Firebase sign in method
+    var provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithPopup(provider);
+  }
+
+  signOut() {
+    // Call Firebase sign out method
+    firebase.auth().signOut();
+  }
+
+  componentDidMount() {
+    // Event handler for handling change in auth state.
+    firebase.auth().onAuthStateChanged(user => {
+      this.setUser(user);
+    });
   }
 
   render() {
     return (
       <div className="App">
-        <Nav />
-        <main className="main-auth">
-          <Teams
-            firebase={firebase}
-            setActiveTeam={this.setActiveTeam.bind(this)}
-          />
-          <Chat firebase={firebase} activeTeam={this.state.activeTeam} />
-        </main>
-        {/* <main className="main-guest">
-          <Welcome />
-        </main> */}
+        <Nav user={this.state.user} signOut={this.signOut.bind(this)} />
+        {this.state.user === null && (
+          <main className="main-guest">
+            <Welcome signIn={this.signIn.bind(this)} />
+          </main>
+        )}
+        {this.state.user !== null && (
+          <main className="main-auth">
+            <Teams
+              firebase={firebase}
+              setActiveTeam={this.setActiveTeam.bind(this)}
+            />
+            <Chat
+              firebase={firebase}
+              activeTeam={this.state.activeTeam}
+              user={this.state.user}
+            />
+          </main>
+        )}
       </div>
     );
   }
