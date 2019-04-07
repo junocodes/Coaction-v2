@@ -68,7 +68,11 @@
         }
       }
     }
-  }
-  @media screen and (max-width: 600px) {
+    small {
+      display: block;
+      margin-top: $xs;
+      color: $mid;
+      text-align: center;
+    }
   }
 }

@@ -5,11 +5,44 @@ export default class Teams extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      teams: []
+      teams: [],
+      isCreatingTeam: false,
+      value: ""
     };
 
     // Creating reference for Firebase data.
     this.teamsRef = this.props.firebase.database().ref("teams");
+
+    // Binding form values for team creation.
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleCreatingTeamToggle() {
+    // Toggling visibility for creating team form.
+    this.setState({
+      isCreatingTeam: !this.state.isCreatingTeam
+    });
+  }
+
+  handleChange(e) {
+    this.setState({ value: e.target.value });
+
+    // Verify state is updating in console
+    console.log(this.state.value);
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    // Define and push new team to firebase.
+    let newTeam = this.state.value;
+    this.teamsRef.push({
+      name: newTeam
+    });
+
+    // Clearing form input and toggle back to original view.
+    this.setState({ value: "" });
+    this.handleCreatingTeamToggle();
   }
 
   componentDidMount() {
@@ -38,15 +71,27 @@ export default class Teams extends Component {
             return <li key={team.key}>{team.name}</li>;
           })}
         </ul>
-        <div className="create-team-action">
-          <FaPlus />
-        </div>
-        <div className="create-team-form">
-          <form>
-            <input type="text" placeholder="Name of team" />
-            <button>Create Team</button>
-          </form>
-        </div>
+        {!this.state.isCreatingTeam && (
+          <div className="create-team-action">
+            <FaPlus onClick={() => this.handleCreatingTeamToggle()} />
+          </div>
+        )}
+        {this.state.isCreatingTeam && (
+          <div className="create-team-form">
+            <form onSubmit={this.handleSubmit}>
+              <input
+                type="text"
+                value={this.state.value}
+                onChange={this.handleChange}
+                placeholder="Name of team"
+              />
+              <button>Create Team</button>
+            </form>
+            <small onClick={() => this.handleCreatingTeamToggle()}>
+              Cancel
+            </small>
+          </div>
+        )}
       </div>
     );
   }
