@@ -37,6 +37,10 @@ export default class Chat extends Component {
     this.setState({ message: "" });
   }
 
+  removeMessage(message) {
+    this.messagesRef.child(message).remove();
+  }
+
   componentDidMount() {
     this.messagesRef.on("child_added", snapshot => {
       // Destructuring for readibility.
@@ -49,7 +53,18 @@ export default class Chat extends Component {
         messages: messages.concat(message)
       });
 
-      // Reference returned Firebase teams as table.
+      this.messagesRef.on("child_removed", snapshot => {
+        for (var i = 0; i < messages.length; i++) {
+          if (messages[i].key === snapshot.key) {
+            messages.splice(i, 1);
+          }
+        }
+
+        this.setState({
+          messages: messages
+        });
+      });
+      // Reference returned Firebase messages as table.
       // console.table(messages);
     });
   }
@@ -87,9 +102,15 @@ export default class Chat extends Component {
                                 {moment.unix(message.sentAt).format("h:mm A")}
                               </small>
                             </span>
-                            <span className="remove">
-                              <small>X</small>
-                            </span>
+                            {message.username ===
+                              this.props.user.displayName && (
+                              <span
+                                className="remove"
+                                onClick={() => this.removeMessage(message.key)}
+                              >
+                                <small>X</small>
+                              </span>
+                            )}
                           </div>
                         </li>
                       );
